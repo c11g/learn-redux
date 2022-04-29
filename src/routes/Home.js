@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { actionCreator } from "../store";
+import { actionCreator, LOCAL_STORAGE_KEY } from "../store";
+import Todo from "../components/Todo";
 
 function Home({ todos, addTodo }) {
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+  }, [todos]);
+
   const [text, setText] = useState("");
   const onChange = (e) => {
     const { value } = e.target;
     setText(value);
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     addTodo(text);
@@ -21,7 +27,13 @@ function Home({ todos, addTodo }) {
         <input type="text" value={text} onChange={onChange} />
         <button>ADD</button>
       </form>
-      <ul>{JSON.stringify(todos)}</ul>
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            <Todo {...todo} />
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

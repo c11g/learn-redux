@@ -2,8 +2,11 @@ import { createStore } from "redux";
 
 const ADD = "ADD";
 const DELETE = "DELETE";
+export const LOCAL_STORAGE_KEY = "todos_key";
 
-function reducer(state = [], action) {
+const loadState = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+function reducer(state = loadState ? JSON.parse(loadState) : [], action) {
   switch (action.type) {
     case ADD:
       const newTodo = { text: action.payload.text, id: Date.now() };
@@ -26,7 +29,7 @@ function addAction(text) {
 
 function deleteAction(id) {
   return {
-    type: ADD,
+    type: DELETE,
     payload: {
       id,
     },
