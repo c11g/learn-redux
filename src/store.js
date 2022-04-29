@@ -15,7 +15,7 @@ function reducer(state = [], action) {
   }
 }
 
-export function createAddAction(text) {
+function addAction(text) {
   return {
     type: ADD,
     payload: {
@@ -24,7 +24,7 @@ export function createAddAction(text) {
   };
 }
 
-export function createDeleteAction(id) {
+function deleteAction(id) {
   return {
     type: ADD,
     payload: {
@@ -32,5 +32,10 @@ export function createDeleteAction(id) {
     },
   };
 }
+
+export const actionCreator = {
+  addAction,
+  deleteAction,
+};
 
 export const store = createStore(reducer);
