@@ -1,23 +1,20 @@
-import { configureStore, createAction } from "@reduxjs/toolkit";
+import { configureStore, createAction, createReducer } from "@reduxjs/toolkit";
 
 export const LOCAL_STORAGE_KEY = "todos_key";
 
 const loadState = localStorage.getItem(LOCAL_STORAGE_KEY);
-
-function reducer(state = loadState ? JSON.parse(loadState) : [], action) {
-  switch (action.type) {
-    case addAction.type:
-      const newTodo = { text: action.payload, id: Date.now() };
-      return [newTodo, ...state];
-    case deleteAction.type:
-      return state.filter((todo) => todo.id !== action.payload);
-    default:
-      return state;
-  }
-}
+const initialState = loadState ? JSON.parse(loadState) : [];
 
 const addAction = createAction("ADD");
 const deleteAction = createAction("DELETE");
+
+const reducer = createReducer(initialState, {
+  [addAction]: (state, action) => {
+    state.push({ text: action.payload, id: Date.now() });
+  },
+  [deleteAction]: (state, action) =>
+    state.filter((todo) => todo.id !== action.payload),
+});
 
 export const actionCreator = {
   addAction,
