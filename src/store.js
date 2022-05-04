@@ -1,4 +1,4 @@
-import { createStore } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 
 const ADD = "ADD";
 const DELETE = "DELETE";
@@ -41,4 +41,6 @@ export const actionCreator = {
   deleteAction,
 };
 
-export const store = createStore(reducer);
+export const store = configureStore({
+  reducer,
+});
