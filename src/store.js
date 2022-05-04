@@ -8,12 +8,14 @@ const initialState = loadState ? JSON.parse(loadState) : [];
 const addAction = createAction("ADD");
 const deleteAction = createAction("DELETE");
 
-const reducer = createReducer(initialState, {
-  [addAction]: (state, action) => {
-    state.push({ text: action.payload, id: Date.now() });
-  },
-  [deleteAction]: (state, action) =>
-    state.filter((todo) => todo.id !== action.payload),
+const reducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(addAction, (state, action) => {
+      state.push({ text: action.payload, id: Date.now() });
+    })
+    .addCase(deleteAction, (state, action) =>
+      state.filter((todo) => todo.id !== action.payload)
+    );
 });
 
 export const actionCreator = {
