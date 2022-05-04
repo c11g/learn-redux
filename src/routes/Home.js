@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { actionCreator, LOCAL_STORAGE_KEY } from "../store";
+import { add, LOCAL_STORAGE_KEY } from "../store";
 import Todo from "../components/Todo";
 
 function Home({ todos, addTodo }) {
@@ -44,7 +44,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToPorps(dispatch) {
   return {
-    addTodo: (text) => dispatch(actionCreator.addAction(text)),
+    addTodo: (text) => dispatch(add(text)),
   };
 }
 

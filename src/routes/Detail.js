@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { actionCreator } from "../store";
+import { remove } from "../store";
 
 function Detail({ todos, deleteTodo }) {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deleteTodo: (id) => dispatch(actionCreator.deleteAction(id)),
+    deleteTodo: (id) => dispatch(remove(id)),
   };
 }
 
